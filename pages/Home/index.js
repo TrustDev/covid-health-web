@@ -21,7 +21,7 @@ class HomeScreen extends Component {
     componentDidMount() {
         const { uiTextInfo } = this.props;
         if (!uiTextInfo) {        
-            //this.props.router.push('Signin');
+            this.props.router.push('Signin');
         }
     }
     componentDidUpdate(prevProps) {
@@ -33,7 +33,6 @@ class HomeScreen extends Component {
 
     begin = () => {        
         this.props.router.push('Input');
-        //this.props.navigation.navigate('InputScreen');
     }
 
     openTerms = () => {
