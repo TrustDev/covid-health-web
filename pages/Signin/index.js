@@ -65,9 +65,9 @@ class SignInScreen extends Component {
         const clientId = WEB_CLIENT_ID;
         this.props.dispatch(requestSignIn({ name: name, email: email, photoUrl: imageUrl, idToken: tokenId, clientId: clientId }));
     }
+
     googleLoginFailed = (e) => {
         console.log(e);
-
     }
 
     render() {
@@ -99,6 +99,9 @@ class SignInScreen extends Component {
                             />
                         )}
                     />
+                </View>
+                <View style={styles.status}>
+                    <Text style={styles.message}>{this.props.auth.errorMessage}</Text>
                 </View>
             </View>
         );
@@ -139,6 +142,15 @@ const styles = StyleSheet.create({
     },
     toast: {
         flex: 0.1,
+    },
+    status: {
+        flex: 0.1,
+        width: "100%"
+    },
+    message: {
+        textAlign: "center",
+        color: "red",
+        fontSize: 20,
     }
 });
 

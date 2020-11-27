@@ -5,6 +5,7 @@ const initialState = {
   status: {},
   daily: null,
   loading: false,
+  errorMessage: '',
 };
 
 //
@@ -14,8 +15,13 @@ const authReducer = (state = initialState, action) => {
   switch(action.type){
     case 'SIGN_IN_SUCCESS':
       return {...state, 
-        auth: action.payload,
+        auth: action.payload,        
+        errorMessage: '',
       };
+    case 'SIGN_IN_ERROR':
+      return {...state,
+        errorMessage: action.error
+      }
     case 'SET_DAILY':
       return {...state,
         daily: action.payload

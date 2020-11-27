@@ -21,11 +21,10 @@ class HomeScreen extends Component {
     componentDidMount() {
         const { uiTextInfo } = this.props;
         if (!uiTextInfo) {        
-            this.props.router.push('Signin');
+            //this.props.router.push('Signin');
         }
     }
     componentDidUpdate(prevProps) {
-
         if (!_.isEqual(prevProps.auth.auth, this.props.auth.auth)) {
             this.state.is_loading = false;
             this._goToInputScreen();

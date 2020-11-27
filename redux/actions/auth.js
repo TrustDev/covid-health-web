@@ -5,6 +5,12 @@ export const requestSignIn = (user) => {
     return function(dispatch) {
         return API.signIn(user).then(
           async (result) => {
+                console.log(result);
+                if (result.message == "User not registered")
+                {
+                    dispatch(signInError(result.message))
+                    return;
+                }
                 let authInfo = result;                
                 await AsyncStorage.setItem('auth', JSON.stringify(result))
                 dispatch(signInSuccess(authInfo))
