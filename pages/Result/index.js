@@ -62,6 +62,9 @@ class ResultScreen extends Component {
 
     render() {
         const { uiTextInfo, user } = this.props;
+        if (!uiTextInfo) {
+            this.props.router.push('Signin');
+        }
         let textColor = 'rgb(221,75,57)';
         let backgroundColor = '#15AD70';
         let buttonColor = 'black';

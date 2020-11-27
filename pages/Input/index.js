@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Platform, Text, Image, SafeAreaView, ScrollView } from 'react-native';
 import _ from 'lodash';
-import ReactRadioGroup from 'react-simple-radio-button'
 import {RadioGroup, Radio} from 'react-radio-group'
 import Switch from "react-switch";
 
 import { requestUpdate, requestTodayDaily } from '../../redux/actions/auth';
-import API from '../../utils/api'
 //import CommonStyles from '../styles/CommonStyles';
 import GradientButton from '../../elements/GradientButton';
 import { deviceWidth, deviceHeight, shadowOpt } from '../../styles/variables';
-import { apisAreAvailable } from 'expo';
-//import Spinner from 'react-native-loading-spinner-overlay';
 import { withRouter } from "next/router"
  
 class InputScreen extends Component {
@@ -29,8 +25,13 @@ class InputScreen extends Component {
         this.signInToastWithStyle = React.createRef();
     }
 
-    componentDidMount() {
-        this.props.dispatch(requestTodayDaily());
+    componentDidMount() {  
+        const { uiTextInfo } = this.props;
+        if (!uiTextInfo) {        
+            this.props.router.push('Signin');
+            return;
+        }      
+        this.props.dispatch(requestTodayDaily());    
     }
 
     componentDidUpdate(prev) {
@@ -48,24 +49,20 @@ class InputScreen extends Component {
     }
     render() {
         const { uiTextInfo } = this.props;
+        if (!uiTextInfo) {
+            return <View></View>;
+        }
+        
         const userType = uiTextInfo.input.type;
         const radioPadding = deviceWidth > 500 ? 30 : 10;
 
         var radio_props = [
             'Yes', 'No', 'Unable to take temperature'
-            /*
-          {label: 'Yes', value: 1 },
-          {label: 'No', value: 0 },          
-          {label: 'Unable to take temperature', value: -1 }*/
         ];
         return (
             <SafeAreaView style={styles.container}>
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.container}>
-                        {/*<Spinner
-                            visible={this.props.loading}
-                            textStyle={styles.spinnerTextStyle}
-                        />*/}
                         <View style={styles.headerContainer}>
                             <Image
                                 source={require('../../assets/input_header.png')}

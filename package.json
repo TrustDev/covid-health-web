@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "build": "next build"
+    "build": "next build",
+    "dev": "next dev -p 4000"
   },
   "dependencies": {
     "@expo/next-adapter": "^2.1.45",
@@ -25,7 +26,6 @@
     "react-particles-js": "^3.4.1",
     "react-radio-group": "^3.0.3",
     "react-redux": "^7.2.2",
-    "react-simple-radio-button": "^1.0.14",
     "react-switch": "^5.0.1",
     "react-user-avatar": "^1.10.0",
     "react-wavify": "^1.4.0",

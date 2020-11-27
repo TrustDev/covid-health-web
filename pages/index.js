@@ -1,33 +1,49 @@
-// @generated: @expo/next-adapter@2.1.45
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { connect } from 'react-redux';
+import * as Font from 'expo-font';
+import React, { Component } from 'react';
+import { View, StyleSheet, Image, StatusBar } from 'react-native';
+import { withRouter } from "next/router"
 
-function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Welcome to Expo + Next.js 👋</Text>
-    </View>
-  );
+import helper from '../utils/helper';
+
+class StartUpScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            fontLoaded: false
+        }
+        this.isAuthenticated = helper.getAuth();
+    }
+
+    async componentDidMount() {
+        this.setState({ fontLoaded: true });
+    }
+
+
+    render() {
+        if (this.state.fontLoaded) {
+            setTimeout(() => {                
+                console.log(this.props.router)
+                this.props.router.push('Signin');
+                //this.props.navigation.navigate('SignInScreen');
+            }, 2000);         
+        }
+
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#fff'
+                }}
+            >
+                <Image
+                    source={require('../assets/icon.png')}
+                    style={{ width: 202, height: 202 }}
+                />
+            </View>
+        );
+    }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 16,
-  },
-});
-
-
-const mapStateToProps = state => ({
-  auth: state.auth
-});
-
-const mapDispatchToProps = {
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(StartUpScreen)

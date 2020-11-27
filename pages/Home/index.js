@@ -18,7 +18,12 @@ class HomeScreen extends Component {
             is_exist: false,
         };
     }
-
+    componentDidMount() {
+        const { uiTextInfo } = this.props;
+        if (!uiTextInfo) {        
+            this.props.router.push('Signin');
+        }
+    }
     componentDidUpdate(prevProps) {
 
         if (!_.isEqual(prevProps.auth.auth, this.props.auth.auth)) {
@@ -38,6 +43,10 @@ class HomeScreen extends Component {
 
     render() {
         const { uiTextInfo } = this.props;
+        console.log(uiTextInfo);
+        if (!uiTextInfo) {
+            return <View></View>;
+        }
         const userType = uiTextInfo.input.type;
         return (
             <SafeAreaView style={styles.container}>

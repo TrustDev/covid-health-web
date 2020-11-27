@@ -39,6 +39,7 @@ class SignInScreen extends Component {
         {
             try {
                 const auth = JSON.parse(jsonStr);
+                console.log(auth);
                 this.props.dispatch(signInSuccess(auth));
                 this._goToInputScreen();
             } catch (e) {
@@ -64,7 +65,8 @@ class SignInScreen extends Component {
         const clientId = WEB_CLIENT_ID;
         this.props.dispatch(requestSignIn({ name: name, email: email, photoUrl: imageUrl, idToken: tokenId, clientId: clientId }));
     }
-    googleLoginFailed = () => {
+    googleLoginFailed = (e) => {
+        console.log(e);
 
     }
 
@@ -86,7 +88,7 @@ class SignInScreen extends Component {
                         clientId={WEB_CLIENT_ID}
                         buttonText="Sign In With Google"
                         onSuccess={this.googleLoginSuccess}
-                        onFailure={this.responseGoogle}
+                        onFailure={this.googleLoginFailed}
                         cookiePolicy={'single_host_origin'}
                         render={renderProps => (
                             <GoogleButton
