@@ -114,7 +114,8 @@ const spaceHeight = deviceHeight - ELEMENT_HEIGHT;
 const styles = StyleSheet.create({
     content: {
         flex: 1,
-        height: "100%"
+        height: "100%",
+        width: 600,
     },
     titleContainer: {
         flex: 0.2,        
