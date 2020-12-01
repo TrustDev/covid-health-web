@@ -26,7 +26,7 @@ export const requestTodayDaily = () => {
         return API.fetchDaily().then(
           async (res) => {              
                 dispatch(setLoading(false))
-                const daily = res.Dailies.length ? res.Dailies[0]: null;
+                const daily = res;
                 if (daily == null)
                     return;
                 const inputData = { attend: daily.attend, tempLess: daily.temp, noSymptoms: daily.symptoms, exposure: daily.exposure };

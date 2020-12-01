@@ -69,7 +69,7 @@ class ResultScreen extends Component {
         let backgroundColor = '#15AD70';
         let buttonColor = 'black';
         const avatarSize = deviceWidth > 500 ? 250 : 200;
-        const avatar = `${ENDPOINT}public/avatar/${user.avatar}`;
+        const avatar = !user.avatar ? null : user.avatar.startsWith("http") ? user.avatar : `${ENDPOINT}public/avatar/${user.avatar}`;       
         const state = this.getUserState();
         switch(state) {
             case 'green':
@@ -94,7 +94,7 @@ class ResultScreen extends Component {
             <View style={{ flex: 1, justifyContent: 'space-around', paddingTop: 50, backgroundColor: backgroundColor }}>
                 <View style={styles.checkView}>
                     <UserAvatar imageStyle={styles.avatar} size={avatarSize} name={user.first + " " + user.last} src={avatar} />
-                    <Text style={{...styles.name, color: textColor}}>{user.first + " " + user.last}</Text>
+                    <Text style={styles.name}>{user.first + " " + user.last}</Text>
                     <Text style={styles.date}>{getCurrentDate()}</Text>
                 </View>
                 <View style={styles.titleContainer}>
@@ -189,7 +189,8 @@ const styles = StyleSheet.create({
     name: { 
         marginTop: 20,
         fontSize: 25, 
-        fontWeight: "bold" 
+        fontWeight: "bold",
+        color: "white"
     },
     date: { 
         fontSize: 20,

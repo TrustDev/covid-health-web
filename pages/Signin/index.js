@@ -89,7 +89,6 @@ class SignInScreen extends Component {
                         buttonText="Sign In With Google"
                         onSuccess={this.googleLoginSuccess}
                         onFailure={this.googleLoginFailed}
-                        cookiePolicy={'single_host_origin'}
                         render={renderProps => (
                             <GoogleButton
                                 onPressButton={renderProps.onClick}

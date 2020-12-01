@@ -42,18 +42,71 @@ class InputScreen extends Component {
 
     submit(attend) {
         const { uiTextInfo } = this.props;
+        const userType = uiTextInfo.input.type;
         const { tempLess, noSymptoms, exposure } = this.state;
         const { status } = this.props;
         const inputData = { attend: attend, tempLess: tempLess, noSymptoms: noSymptoms, exposure: exposure };
+        if (userType == "other") {
+            inputData.tempLess = -2;
+            this.props.dispatch(requestUpdate(inputData));
+            return;
+        }
         this.props.dispatch(requestUpdate(inputData));
     }
+
+    renderForOther () { 
+        const { uiTextInfo } = this.props;
+        return (
+            <SafeAreaView style={styles.container}>
+                <ScrollView style={styles.scrollView}>
+                    <View style={styles.container}>
+                        <View style={styles.headerContainer}>
+                            <Image
+                                source={require('../../assets/input_header.png')}
+                                style={styles.header}
+                            />
+                        </View>
+                        <View style={styles.valueGroup}>
+                            <Text style={styles.valueLabel}>{uiTextInfo.input.label}</Text>
+                            <View style={styles.valueSwitchContainer}>
+                                <Switch
+                                    backgroundActive="#B731B7"
+                                    value={this.state.noSymptoms}
+                                    onValueChange={(val) => this.setState({noSymptoms: val})}
+                                    activeText={''}
+                                    inActiveText={''}
+                                />
+                            </View>
+                        </View>
+                        <View>
+                            <Text style={styles.alert}>
+                                {uiTextInfo.input.description}
+                            </Text>
+                        </View>
+                        <View style={styles.buttonGroup}>
+                            <GradientButton
+                                style={styles.button}
+                                onPressButton={()=>this.submit(true)}
+                                setting={shadowOpt}
+                                btnText={uiTextInfo.input.button}
+                            />
+                        </View>
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
+        );
+    }
+
+
     render() {
         const { uiTextInfo } = this.props;
         if (!uiTextInfo) {
             return <View></View>;
         }
-        
         const userType = uiTextInfo.input.type;
+        if (userType == "other")
+            return this.renderForOther();
+        
         const radioPadding = deviceWidth > 500 ? 30 : 10;
 
         var radio_props = [
