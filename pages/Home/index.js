@@ -72,12 +72,12 @@ class HomeScreen extends Component {
                                 setting={shadowOpt}
                                 btnText="Begin"
                             />
-                            {userType != "other" && <GradientButton
+                            <GradientButton
                                 style={styles.button}
                                 onPressButton={()=>this.openTerms()}
                                 setting={{...shadowOpt, backgroundColor: "#AAAAAA", color: "#222222"}}
                                 btnText="Terms of Use and Privacy Policy"
-                            />}
+                            />
                         </View>
                     </View>
                 </ScrollView>
