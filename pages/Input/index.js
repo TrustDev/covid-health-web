@@ -57,7 +57,7 @@ class InputScreen extends Component {
     renderForOther () { 
         const { uiTextInfo } = this.props;
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.root}>
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.container}>
                         <View style={styles.headerContainer}>
@@ -70,11 +70,9 @@ class InputScreen extends Component {
                             <Text style={styles.valueLabel}>{uiTextInfo.input.label}</Text>
                             <View style={styles.valueSwitchContainer}>
                                 <Switch
-                                    backgroundActive="#B731B7"
-                                    value={this.state.noSymptoms}
-                                    onValueChange={(val) => this.setState({noSymptoms: val})}
-                                    activeText={''}
-                                    inActiveText={''}
+                                    onColor="#B731B7"
+                                    checked={this.state.noSymptoms}
+                                    onChange={(val) => this.setState({noSymptoms: val})}
                                 />
                             </View>
                         </View>
@@ -113,7 +111,7 @@ class InputScreen extends Component {
             'Yes', 'No', 'Unable to take temperature'
         ];
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.root}>
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.container}>
                         <View style={styles.headerContainer}>
@@ -187,6 +185,12 @@ const ELEMENT_HEIGHT = 377;
 const spaceHeight = deviceHeight - ELEMENT_HEIGHT;
 
 const styles = StyleSheet.create({
+    root: {
+        flex: 1,
+        color: "#757575",
+        width: 600,
+        margin: "auto"
+    },
     container: {
         flex: 1,
         color: "#757575",

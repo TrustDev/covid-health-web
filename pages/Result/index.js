@@ -13,6 +13,7 @@ import UserAvatar from 'react-user-avatar';
 import {ENDPOINT} from '../../utils/consts';
 import { withRouter } from "next/router"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setDaily } from '../../redux/actions/auth';
 
 const getCurrentDate = () => {
     const d = new Date();
@@ -31,14 +32,22 @@ class ResultScreen extends Component {
         };
         this.signInToastWithStyle = React.createRef();
     }
+    componentDidMount() {
+        const { uiTextInfo } = this.props;
+        if (!uiTextInfo) {        
+            this.props.router.push('Signin');
+        }
+    }
 
     componentDidUpdate(prevProps) {
 
     }
 
     getUserState = () => {
-
         const status = this.props.daily;
+        if (!status)
+            return "green";
+
         if (status.tempLess == -2) {
             return status.noSymptoms ? "green" : "red";
         }
@@ -58,12 +67,13 @@ class ResultScreen extends Component {
     logout = () => {
         AsyncStorage.clear();
         this.props.router.push('Signin');
+        this.props.setDaily(null);
     }
 
     render() {
         const { uiTextInfo, user } = this.props;
         if (!uiTextInfo) {
-            this.props.router.push('Signin');
+            return <View></View>;
         }
         let textColor = 'rgb(221,75,57)';
         let backgroundColor = '#15AD70';
@@ -91,7 +101,7 @@ class ResultScreen extends Component {
         }
 
         return (
-            <View style={{ flex: 1, justifyContent: 'space-around', paddingTop: 50, backgroundColor: backgroundColor }}>
+            <View style={[styles.container, {backgroundColor: backgroundColor}]}>
                 <View style={styles.checkView}>
                     <UserAvatar imageStyle={styles.avatar} size={avatarSize} name={user.first + " " + user.last} src={avatar} />
                     <Text style={styles.name}>{user.first + " " + user.last}</Text>
@@ -135,6 +145,13 @@ const ELEMENT_HEIGHT = 377;
 const spaceHeight = deviceHeight - ELEMENT_HEIGHT;
 
 const styles = StyleSheet.create({
+    container: {
+        width: 600,
+        margin: "auto",
+        flex: 1,
+        justifyContent: 'space-around',
+        paddingTop: 50,
+    },
     avatar: {
         borderColor: "white",
         borderWidth: 5,
@@ -199,7 +216,8 @@ const styles = StyleSheet.create({
     },
     buttonGroup: {
         alignItems: "center",        
-        zIndex:999
+        zIndex: 999,
+        width: "100%",
     },
     button: {
         marginBottom: 20,
@@ -210,4 +228,4 @@ export default withRouter(connect(({ auth }) => ({
     uiTextInfo: auth.auth.uiTextInfo,
     user: auth.auth.user,
     daily: auth.daily,
-}))(ResultScreen));
+}), {setDaily})(ResultScreen));

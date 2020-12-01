@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView, Linking  } from 'reac
 import _ from 'lodash';
 
 import { deviceHeight, shadowOpt } from '../../styles/variables';
+import { requestTodayDaily } from '../../redux/actions/auth';
 
 //import CommonStyles from '../styles/CommonStyles';
 import GradientButton from '../../elements/GradientButton';
@@ -21,13 +22,19 @@ class HomeScreen extends Component {
     componentDidMount() {
         const { uiTextInfo } = this.props;
         if (!uiTextInfo) {        
-            this.props.router.push('Signin');
+            return this.props.router.push('Signin');
         }
+        this.props.dispatch(requestTodayDaily());  
     }
+
     componentDidUpdate(prevProps) {
         if (!_.isEqual(prevProps.auth.auth, this.props.auth.auth)) {
             this.state.is_loading = false;
             this._goToInputScreen();
+            return;
+        }
+        if (this.props.daily != null) {
+            this.props.router.push('Result');
         }
     }
 
@@ -86,6 +93,8 @@ const spaceHeight = deviceHeight - ELEMENT_HEIGHT;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: 600,
+        margin: "auto"
     },
     content: {
     },
@@ -118,4 +127,5 @@ const styles = StyleSheet.create({
 export default withRouter(connect(({ auth }) => ({
     auth: auth,
     uiTextInfo: auth.auth.uiTextInfo,
+    daily: auth.daily,
 }))(HomeScreen));

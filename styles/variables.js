@@ -7,9 +7,9 @@ const NAV_HEIGHT = 45;
 const TAB_HEIGHT = 50;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 25;
 const deviceHeight = Dimensions.get('window').height;
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Math.min(Dimensions.get('window').width, 600);
 const shadowOpt = {
-  btnWidth: deviceWidth - 55,
+  btnWidth: deviceWidth - 50,
   btnHeight: 65
 }
 

@@ -57,7 +57,7 @@ export default class GradientButton extends Component {
 
     // Return a view ,whose background is a svg picture
     return (
-      <View style={{marginBottom: 20}}>
+      <View style={{marginBottom: 20, marginLeft: 10, marginRight: 10}}>
         <LinearGradient
           start={{x: 0.2, y: 0.4}} end={{x: 1.0, y: 1.0}}
           colors={[backgroundColor, backgroundColor]}
